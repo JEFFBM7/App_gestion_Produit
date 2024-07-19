@@ -1,10 +1,10 @@
 package objet;
 
 public class Electronique extends Produit {
-    private int garantie;
+    private int garantie; // durée de garantie en années
 
     public Electronique(String id, String nom, double prix, int quantite, int garantie) {
-        super(id, nom, prix, quantite);
+        super(id, nom, prix, quantite, "Electronique");
         this.garantie = garantie;
     }
 
@@ -18,11 +18,8 @@ public class Electronique extends Produit {
 
     @Override
     public String toString() {
-        return super.toString() + ", Electronique{garantie=" + garantie + "}";
-    }
-
-    @Override
-    public String toCSV() {
-        return super.toCSV() + "," + garantie;
+        return "Electronique{" +
+                "garantie=" + garantie +
+                "} " + super.toString();
     }
 }

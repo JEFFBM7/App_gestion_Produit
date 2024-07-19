@@ -1,81 +1,108 @@
 package objet;
 
-import java.io.*;
+import DB.DatabaseUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Magasin {
-    private HashMap<String, Produit> produits = new HashMap<>();
+    private final List<Produit> produits = new ArrayList<>();
+
+    public void chargerProduits() {
+        produits.clear();
+        try (Connection connection = DatabaseUtil.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM produits")) {
+
+            while (rs.next()) {
+                Produit produit = new Produit(
+                        rs.getString("id"),
+                        rs.getString("nom"),
+                        rs.getDouble("prix"),
+                        rs.getInt("quantite"),
+                        rs.getString("type")
+                );
+                produits.add(produit);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ObservableList<Produit> getProduits() {
+        return FXCollections.observableArrayList(produits);
+    }
 
     public void ajouterProduit(Produit produit) {
-        produits.put(produit.getId(), produit);
-        sauvegarderProduits();
+        produits.add(produit);
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(
+                     "INSERT INTO produits (id, nom, prix, quantite, type) VALUES (?, ?, ?, ?, ?)")) {
+            stmt.setString(1, produit.getId());
+            stmt.setString(2, produit.getNom());
+            stmt.setDouble(3, produit.getPrix());
+            stmt.setInt(4, produit.getQuantite());
+            stmt.setString(5, produit.getType());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void supprimerProduit(String id) {
-        produits.remove(id);
-        sauvegarderProduits();
+        produits.removeIf(produit -> produit.getId().equals(id));
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement stmt = connection.prepareStatement("DELETE FROM produits WHERE id = ?")) {
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void modifierProduit(String id, Produit produit) {
-        produits.put(id, produit);
-        sauvegarderProduits();
+    public void modifierProduit(String id, Produit newProduit) {
+        for (int i = 0; i < produits.size(); i++) {
+            if (produits.get(i).getId().equals(id)) {
+                produits.set(i, newProduit);
+                break;
+            }
+        }
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(
+                     "UPDATE produits SET nom = ?, prix = ?, quantite = ?, type = ? WHERE id = ?")) {
+            stmt.setString(1, newProduit.getNom());
+            stmt.setDouble(2, newProduit.getPrix());
+            stmt.setInt(3, newProduit.getQuantite());
+            stmt.setString(4, newProduit.getType());
+            stmt.setString(5, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Produit rechercherProduitParNom(String nom) {
-        for (Produit produit : produits.values()) {
-            if (produit.getNom().equalsIgnoreCase(nom)) {
-                return produit;
-            }
-        }
-        return null;
+        return produits.stream().filter(produit -> produit.getNom().equals(nom)).findFirst().orElse(null);
     }
 
     public List<Produit> listerProduitsParLettre(char lettre) {
-        List<Produit> resultat = new ArrayList<>();
-        for (Produit produit : produits.values()) {
-            if (produit.getNom().charAt(0) == lettre) {
-                resultat.add(produit);
+        List<Produit> result = new ArrayList<>();
+        for (Produit produit : produits) {
+            if (produit.getNom().startsWith(String.valueOf(lettre))) {
+                result.add(produit);
             }
         }
-        return resultat;
+        return result;
     }
 
     public int nombreProduitsEnStock() {
         return produits.size();
     }
 
-    public void sauvegarderProduits() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("produits.txt"))) {
-            for (Produit produit : produits.values()) {
-                writer.println(produit);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void chargerProduits() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("produits.txt"))) {
-            String ligne;
-            while ((ligne = reader.readLine()) != null) {
-                // Parsing logic to recreate products and add to produits map
-                // Example: Produit{id='1', nom='Laptop', prix=1000.0, quantite=10}, Electronique{garantie=2}
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exporterProduitsEnCSV() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("produits.csv"))) {
-            writer.println("ID,Nom,Prix,Quantite,Type,AttributSpécifique");
-            for (Produit produit : produits.values()) {
-                writer.println(produit.toCSV());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public List<Produit> getAllProduits() {
+        return produits;
     }
 }

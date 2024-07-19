@@ -1,10 +1,10 @@
 package objet;
 
 public class Alimentaire extends Produit {
-    private String dateExpiration;
+    private String dateExpiration; // date d'expiration au format "yyyy-MM-dd"
 
     public Alimentaire(String id, String nom, double prix, int quantite, String dateExpiration) {
-        super(id, nom, prix, quantite);
+        super(id, nom, prix, quantite, "Alimentaire");
         this.dateExpiration = dateExpiration;
     }
 
@@ -18,11 +18,8 @@ public class Alimentaire extends Produit {
 
     @Override
     public String toString() {
-        return super.toString() + ", Alimentaire{dateExpiration='" + dateExpiration + "'}";
-    }
-
-    @Override
-    public String toCSV() {
-        return super.toCSV() + "," + dateExpiration;
+        return "Alimentaire{" +
+                "dateExpiration='" + dateExpiration + '\'' +
+                "} " + super.toString();
     }
 }

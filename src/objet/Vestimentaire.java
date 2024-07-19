@@ -1,10 +1,10 @@
 package objet;
 
 public class Vestimentaire extends Produit {
-    private String taille;
+    private String taille; // taille du vêtement
 
     public Vestimentaire(String id, String nom, double prix, int quantite, String taille) {
-        super(id, nom, prix, quantite);
+        super(id, nom, prix, quantite, "Vestimentaire");
         this.taille = taille;
     }
 
@@ -18,11 +18,8 @@ public class Vestimentaire extends Produit {
 
     @Override
     public String toString() {
-        return super.toString() + ", Vestimentaire{taille='" + taille + "'}";
-    }
-
-    @Override
-    public String toCSV() {
-        return super.toCSV() + "," + taille;
+        return "Vestimentaire{" +
+                "taille='" + taille + '\'' +
+                "} " + super.toString();
     }
 }

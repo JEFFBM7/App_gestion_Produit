@@ -1,0 +1,164 @@
+/*.root {*/
+/*    -fx-font-family: "Arial";*/
+/*    -fx-background-color: #383838;*/
+/*}*/
+
+/*.label {*/
+/*    -fx-text-fill: #2e63c6;*/
+/*}*/
+
+/*.table-view {*/
+/*    -fx-background-color: #2e2e2e;*/
+/*    -fx-text-fill: #2e63c6;*/
+/*}*/
+
+/*.table-view .column-header-background {*/
+/*    -fx-background-color: #4a4a4a;*/
+/*}*/
+
+/*.table-view .table-row-cell {*/
+/*    -fx-background-color: #2e2e2e;*/
+/*}*/
+
+/*.table-view .table-row-cell:odd {*/
+/*    -fx-background-color: #333333;*/
+/*}*/
+
+/*.button {*/
+/*    -fx-background-color: #4a4a4a;*/
+/*    -fx-text-fill: #2e63c6;*/
+/*}*/
+
+/*.menu-bar {*/
+/*    -fx-background-color: #2e63c6;*/
+/*}*/
+
+/*.menu-item {*/
+/*    -fx-text-fill: #2e63c6;*/
+/*}*/
+
+/*.separator {*/
+/*    -fx-background-color: #2e63c6;*/
+/*}*/
+
+
+/*.root {*/
+/*    -fx-background-color: #2d2d2d;*/
+/*}*/
+
+/*.label, .hyperlink, .button, .text-field, .password-field {*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-font-size: 14px;*/
+/*}*/
+
+/*.label {*/
+/*    -fx-font-size: 24px;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
+
+/*.hyperlink {*/
+/*    -fx-text-fill: #00aaff;*/
+/*}*/
+
+/*.hyperlink:hover {*/
+/*    -fx-text-fill: #0099dd;*/
+/*}*/
+
+/*.text-field, .password-field {*/
+/*    -fx-background-color: #444444;*/
+/*    -fx-background-radius: 5px;*/
+/*    -fx-border-color: #444444;*/
+/*    -fx-border-radius: 5px;*/
+/*    -fx-padding: 10px;*/
+/*}*/
+
+/*.button {*/
+/*    -fx-background-color: #00aaff;*/
+/*    -fx-background-radius: 5px;*/
+/*    -fx-border-radius: 5px;*/
+/*    -fx-padding: 10px;*/
+/*}*/
+
+/*.button:hover {*/
+/*    -fx-background-color: #0099dd;*/
+/*}*/
+
+/*.hbox {*/
+/*    -fx-spacing: 10px;*/
+/*}*/
+
+/*.vbox {*/
+/*    -fx-spacing: 15px;*/
+/*}*/
+
+/* dark-theme.css */
+.root {
+    -fx-background-color: #1E1E2F;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.label {
+    -fx-text-fill: #1e1e2f;
+    -fx-font-size: 16px;
+    -fx-font-family:"Ubuntu Sans"
+}
+
+.button {
+    -fx-background-color: #252741;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10px 20px;
+}
+
+.button:hover {
+    -fx-background-color: #3a3e59;
+}
+
+.table-view {
+    -fx-background-color: #252741;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1F1F2F;
+}
+
+.table-row-cell {
+    -fx-background-color: #2A2A3E;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #3a3e59;
+}
+
+.separator {
+    -fx-background-color: #3a3e59;
+}
+
+.text-field, .combo-box {
+    -fx-background-color: #2A2A3E;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10px;
+}
+
+.dialog-pane {
+    -fx-background-color: #1E1E2F;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: #252741;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: #3a3e59;
+}
